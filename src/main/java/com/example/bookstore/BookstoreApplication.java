@@ -7,9 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.example.bookstore.domain.BookRepository;
+import com.example.bookstore.domain.CategoryRepository;
 import com.example.bookstore.model.Book;
+import com.example.bookstore.model.Category;
 
-import ch.qos.logback.classic.Logger;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -22,12 +23,15 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner Book(BookRepository repository) {
+	public CommandLineRunner Book(BookRepository brepository, CategoryRepository crepository) {
 	return (args) -> {
-		repository.save(new Book (1, "Erkki Testaaja", "KH25123", "Jaakon Seikkailut", 2020, 13.45));
 		
+		crepository.save(new Category("Fiction"));
+		crepository.save(new Category("Horror"));
+		crepository.save(new Category("History"));
+		
+		brepository.save(new Book("Erkki Testaaja", "KH25123", "Jaakon Seikkailut", 2020, 13.45, crepository.findByName("Fiction").get(0)));
 	
 	};
 	}
 }
-
