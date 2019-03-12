@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 //import com.example.bookstore.domain.CategoryRepository;
+import com.example.bookstore.model.Book;
 
 @Controller
 public class BookController {

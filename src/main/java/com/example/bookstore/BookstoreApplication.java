@@ -7,10 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.example.bookstore.domain.BookRepository;
+import com.example.bookstore.model.Book;
 
 import ch.qos.logback.classic.Logger;
-
-import com.example.bookstore.domain.Book;
 
 @SpringBootApplication
 public class BookstoreApplication {
