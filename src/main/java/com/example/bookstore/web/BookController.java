@@ -34,9 +34,10 @@ public class BookController {
 		return "login";
 	}
 	
+	
 	@GetMapping("/")
 	 public String index() {
-		return "redirect:booklist";
+		return "redirect:signup";
 	}
 	
 	@RequestMapping(value="/booklist", method=RequestMethod.GET)
