@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.bookstore.domain.BookRepository;
 import com.example.bookstore.domain.CategoryRepository;
+import com.example.bookstore.domain.UserRepository;
 import com.example.bookstore.model.Book;
+
 
 @Controller
 public class BookController {
+	@Autowired
+	private UserRepository urepository;
 	@Autowired
 	private BookRepository repository;
 
@@ -41,7 +46,7 @@ public class BookController {
 	}
 	
 	//add new book
-	@RequestMapping(value="/add", method=RequestMethod.GET)
+	@RequestMapping(value="/add")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
 		model.addAttribute("categories", crepository.findAll());
@@ -56,6 +61,7 @@ public class BookController {
     }    
     
     //delete book
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
     	repository.deleteById(bookId);
@@ -80,7 +86,7 @@ public class BookController {
     @RequestMapping(value="/book/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {	
     	return repository.findById(bookId);
-    }       
+    }
 
     
 }
